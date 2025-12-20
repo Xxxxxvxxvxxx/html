@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stretch Image</title>
+  <style>
+    .stretch-box {
+      width: 300px;             /* adjust width */
+      aspect-ratio: 9 / 16;     /* enforce 9:16 ratio */
+      margin: 20px auto;
+    }
+    .stretch-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;         /* stretch image to fill box */
+    }
+  </style>
+</head>
+<body>
+  <div class="stretch-box">
+    <img src="https://res.cloudinary.com/durzipdbq/image/upload/v1765891255/noughty_iyzt9l.jpg" alt="Noughty image" />
+  </div>
+</body>
+</html>
