@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevTools Deterrent</title>
+  <style>
+    body {
+      background: #111;
+      color: #eee;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    #warning {
+      display: none;
+      background: #300;
+      color: #f88;
+      padding: 20px;
+      border: 2px solid #f00;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Protected Page</h1>
+  <p>Developer tools are discouraged on this page.</p>
+  <div id="warning">⚠️ Developer tools detected. Access is restricted.</div>
+
+  <script>
+    // Block common DevTools shortcuts
+    document.addEventListener("keydown", function(e) {
+      const k = e.key.toLowerCase();
+      if (
+        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(k)) || // Ctrl+Shift+I/J/C
+        (e.metaKey && e.altKey && k === "i") || // Cmd+Opt+I (Mac)
+        (k === "f12")
+      ) {
+        e.preventDefault();
+        alert("Developer tools are disabled.");
+      }
+    });
+
+    // Detect DevTools via window size difference
+    let devtoolsOpen = false;
+    setInterval(() => {
+      const threshold = 160;
+      const widthDiff = window.outerWidth - window.innerWidth;
+      const heightDiff = window.outerHeight - window.innerHeight;
+      const detected = widthDiff > threshold || heightDiff > threshold;
+
+      if (detected && !devtoolsOpen) {
+        devtoolsOpen = true;
+        document.getElementById("warning").style.display = "block";
+        document.body.style.filter = "blur(2px)";
+      } else if (!detected && devtoolsOpen) {
+        devtoolsOpen = false;
+        document.getElementById("warning").style.display = "none";
+        document.body.style.filter = "none";
+      }
+    }, 800);
+  </script>
+</body>
+</html>
